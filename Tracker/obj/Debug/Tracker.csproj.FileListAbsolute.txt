@@ -84,3 +84,11 @@ C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.csproj.CoreCo
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.csproj.CopyComplete
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.dll
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.pdb
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\EntityFramework.dll
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\EntityFramework.SqlServer.dll
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\EntityFramework.xml
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\EntityFramework.SqlServer.xml
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Oracle.ManagedDataAccess.dll
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Oracle.ManagedDataAccess.EntityFramework.dll
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.Migrations.Start_ORCL.resources
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.csproj.GenerateResource.cache

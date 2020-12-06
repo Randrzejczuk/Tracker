@@ -272,7 +272,8 @@
         return this;
     };
 
-    adapters.addBool = function (adapterName, ruleName) {
+    adapters.ad
+    ol = function (adapterName, ruleName) {
         /// <summary>Adds a new adapter to convert unobtrusive HTML into a jQuery Validate validation, where
         /// the jQuery Validate validation rule has no parameter values.</summary>
         /// <param name="adapterName" type="String">The name of the adapter to be added. This matches the name used
