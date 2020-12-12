@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Tracker.Models.Company>
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Lista Firm</h2>
+
+<p>
+    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Company")'">Dodaj</button>
+</p>
+<table class="table table-striped table-hover">
+    <tr class="info">
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.OrderBy(x=>x.Name)) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Company", new {companyId = item.Id })'">Edytuj</button>
+            <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Delete", "Company",new {id = item.Id })'">Usuń</button>
+        </td>
+    </tr>
+}
+
+</table>

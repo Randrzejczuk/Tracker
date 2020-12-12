@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Tracker.Models;
+﻿using System.Linq;
 using System.Web.Mvc;
+using Tracker.Models;
 
 namespace Tracker.Controllers
 {
@@ -12,11 +9,15 @@ namespace Tracker.Controllers
         // GET: Issues/List
         public ViewResult List()
         {
-            var issue = new Issue()
+            using (var context = new TrackerDbContext())
             {
-                Id = 1,
-                Title = "Test"
-            };
+                Issue issue = context.Issues.FirstOrDefault();
+                return View(issue);
+            }
+        }
+        public ViewResult Create()
+        {
+            Issue issue = new Issue();
             return View(issue);
         }
     }

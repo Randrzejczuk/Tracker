@@ -133,14 +133,24 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202012061250416_Start_ORCL.cs" />
     <Compile Include="Migrations\202012061250416_Start_ORCL.designer.cs">
       <DependentUpon>202012061250416_Start_ORCL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012061700314_DeleteWrongIndex.cs" />
+    <Compile Include="Migrations\202012061700314_DeleteWrongIndex.designer.cs">
+      <DependentUpon>202012061700314_DeleteWrongIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012121125249_DataDescriptions.cs" />
+    <Compile Include="Migrations\202012121125249_DataDescriptions.designer.cs">
+      <DependentUpon>202012121125249_DataDescriptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
@@ -191,6 +201,11 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Issues\List.cshtml" />
+    <Content Include="Views\Issues\Create.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\Company\Create.cshtml" />
+    <Content Include="Views\Company\List.cshtml" />
+    <Content Include="Views\Company\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -211,6 +226,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202012061250416_Start_ORCL.resx">
       <DependentUpon>202012061250416_Start_ORCL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012061700314_DeleteWrongIndex.resx">
+      <DependentUpon>202012061700314_DeleteWrongIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012121125249_DataDescriptions.resx">
+      <DependentUpon>202012121125249_DataDescriptions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

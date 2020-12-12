@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Tracker.Models
 {
     public class Issue
     {
         public int Id { get; set; }
+        [Display(Name = "Tytuł")]
+        [Required(ErrorMessage = "Wymagane jest podanie tytułu.")]
         public string Title { get; set; }
+        [Display(Name = "Opis")]
+        [Required(ErrorMessage = "Wymagane jest podanie opisu.")]
         public string Description { get; set; }
 
         public int StatusId { get; set; }
