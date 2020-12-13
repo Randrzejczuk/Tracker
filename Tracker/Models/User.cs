@@ -17,6 +17,7 @@ namespace Tracker.Models
         public string Login { get; set; }
         [Display(Name = "Hasło")]
         [Required(ErrorMessage = "Wymagane jest podanie hasła.")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         [Display(Name = "Email")]
         public string Email { get; set; }

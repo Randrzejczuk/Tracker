@@ -24,7 +24,7 @@ namespace Tracker.Controllers
                 var context = new TrackerDbContext();
                 context.Companies.Add(company);
                 context.SaveChanges();
-                
+                return RedirectToAction("List");
             }
             return View();
         }
