@@ -111,7 +111,7 @@
             DropForeignKey("COMP.Notifications", "IssueId", "COMP.Issues");
             DropForeignKey("COMP.Issues", "Companyid", "COMP.Companies");
             DropForeignKey("COMP.Issues", "AgentId", "COMP.Users");
-            DropForeignKey("COMP.Users", "CompanyId", "COMP.Companies");
+            DropForeignKey("COMP.Users", "Companyid", "COMP.Companies");
             DropIndex("COMP.Notifications", new[] { "WorkerId" });
             DropIndex("COMP.Notifications", new[] { "IssueId" });
             DropIndex("COMP.Issues", new[] { "User_Id1" });
@@ -121,7 +121,7 @@
             DropIndex("COMP.Issues", new[] { "AgentId" });
             DropIndex("COMP.Issues", new[] { "StatusId" });
             DropIndex("COMP.Users", new[] { "UserTypeId" });
-            DropIndex("COMP.Users", new[] { "CompanyId" });
+            DropIndex("COMP.Users", new[] { "Companyid" });
             DropTable("COMP.UserTypes");
             DropTable("COMP.Status");
             DropTable("COMP.Notifications");

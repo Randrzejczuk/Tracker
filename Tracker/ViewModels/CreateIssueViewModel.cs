@@ -7,12 +7,14 @@ using Tracker.Models;
 
 namespace Tracker.ViewModels
 {
-    public class CreateUserViewModel
+    public class CreateIssueViewModel
     {
-        public User User { get; set; }
+        public Issue Issue { get; set; }
         [Display(Name = "Firma")]
         public List<Company> Companies { get; set; }
-        [Display(Name = "Typ użytkownika")]
-        public List<UserType> UserTypes { get; set; }
+        [Display(Name = "Zgloszone przez")]
+        public List<User> Users { get; set; }
+        [Display(Name = "Agent")]
+        public List<User> Agents { get; set; }
     }
 }
