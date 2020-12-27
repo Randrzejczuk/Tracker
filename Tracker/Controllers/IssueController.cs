@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Tracker.Models;
 using Tracker.ViewModels;
+using System.Data.Entity;
 
 namespace Tracker.Controllers
 {
@@ -26,11 +27,7 @@ namespace Tracker.Controllers
             var context = new TrackerDbContext();
             if (ModelState.IsValid)
             {
-                issue.Company = context.Companies.Where(x => x.Id == issue.Companyid).FirstOrDefault();
-                issue.Agent = context.Users.Where(x => x.Id == issue.AgentId).FirstOrDefault();
-                issue.Notifier = context.Users.Where(x => x.Id == issue.NotifierId).FirstOrDefault();
                 issue.StatusId = 1;
-                issue.Status = context.Statuses.Where(x => x.Id == issue.StatusId).FirstOrDefault();
                 context.Issues.Add(issue);
                 context.SaveChanges();
                 return RedirectToAction("List");
@@ -51,8 +48,20 @@ namespace Tracker.Controllers
         public ViewResult List()
         {
             var context = new TrackerDbContext();
-            var issues = context.Issues;
+            var issues = context.Issues
+                .Include(x => x.Status)
+                .Include(x=>x.Notifier)
+                .Include(x=>x.Agent);
             return View(issues);
+        }
+
+        public ActionResult Delete(Issue issue)
+        {
+            var context = new TrackerDbContext();
+            Issue issueToDelete = context.Issues.Where(x => x.Id == issue.Id).FirstOrDefault();
+            context.Issues.Remove(issueToDelete);
+            context.SaveChanges();
+            return RedirectToAction("List");
         }
     }
 }

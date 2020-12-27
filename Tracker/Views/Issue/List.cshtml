@@ -14,8 +14,9 @@
     <tr class="info">
         <th>@Html.DisplayNameFor(model => model.Title)</th>
         <th>@Html.DisplayNameFor(model => model.Description)</th>
-        <th>@Html.DisplayNameFor(model => model.Agent)</th>
-        <th>@Html.DisplayNameFor(model => model.Notifier)</th>
+        <th>@Html.DisplayNameFor(model => model.Agent.Lastname)</th>
+        <th>@Html.DisplayNameFor(model => model.Notifier.Lastname)</th>
+        <th>@Html.DisplayNameFor(model => model.Status.Name)</th>
         <th></th>
     </tr>
 
@@ -26,8 +27,9 @@
             <td>@Html.DisplayFor(modelItem => item.Description)</td>
             <td>@Html.DisplayFor(modelItem => item.Agent.Lastname)</td>
             <td>@Html.DisplayFor(modelItem => item.Notifier.Lastname)</td>
+            <td>@Html.DisplayFor(modelItem => item.Status.Name)</td>
             <td>
-                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Issue", new {userId = item.Id })'">Edytuj</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("List", "Notification", new {issueId = item.Id })'">Szczegóły</button>
                 <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Delete", "Issue",new {id = item.Id })'">Usuń</button>
             </td>
         </tr>

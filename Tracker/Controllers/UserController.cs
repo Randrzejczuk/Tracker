@@ -25,8 +25,6 @@ namespace Tracker.Controllers
             var context = new TrackerDbContext();
             if (ModelState.IsValid)
             {
-                user.Company = context.Companies.Where(x => x.Id == user.CompanyId).FirstOrDefault();
-                user.UserType = context.UserTypes.Where(x => x.Id == user.UserTypeId).FirstOrDefault();
                 context.Users.Add(user);
                 context.SaveChanges();
                 return RedirectToAction("List");
