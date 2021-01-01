@@ -58,7 +58,9 @@ namespace Tracker.Controllers
         public ActionResult Delete(Issue issue)
         {
             var context = new TrackerDbContext();
-            Issue issueToDelete = context.Issues.Where(x => x.Id == issue.Id).FirstOrDefault();
+            Issue issueToDelete = context.Issues.Where(x => x.Id == issue.Id).Include(x=>x.Notifications).FirstOrDefault();
+            foreach (var notification in issueToDelete.Notifications)
+                context.Notifications.Remove(notification);
             context.Issues.Remove(issueToDelete);
             context.SaveChanges();
             return RedirectToAction("List");
