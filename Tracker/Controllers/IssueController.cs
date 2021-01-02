@@ -20,6 +20,7 @@ namespace Tracker.Controllers
             };
             return View(createIssueViewModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Issue issue)
@@ -59,11 +60,48 @@ namespace Tracker.Controllers
         {
             var context = new TrackerDbContext();
             Issue issueToDelete = context.Issues.Where(x => x.Id == issue.Id).Include(x=>x.Notifications).FirstOrDefault();
-            foreach (var notification in issueToDelete.Notifications)
-                context.Notifications.Remove(notification);
+            context.Notifications.RemoveRange(issueToDelete.Notifications);
             context.Issues.Remove(issueToDelete);
             context.SaveChanges();
             return RedirectToAction("List");
+        }
+
+        public ActionResult Edit(int issueId)
+        {
+            var context = new TrackerDbContext();
+            CreateIssueViewModel IssueViewModel = new CreateIssueViewModel()
+            {
+                Companies = context.Companies.ToList(),
+                Users = context.Users.ToList(),
+                Agents = context.Users.Where(x => x.CompanyId == 1).ToList(),
+                Issue = context.Issues.Where(x=>x.Id==issueId).FirstOrDefault()
+            };
+            return View(IssueViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int issueId, Issue issue)
+        {
+            var context = new TrackerDbContext();
+            if (ModelState.IsValid)
+            {
+                Issue issueToEdit = context.Issues.Where(x => x.Id == issueId).FirstOrDefault();
+                issueToEdit.Title = issue.Title;
+                issueToEdit.AgentId = issue.AgentId;
+                issueToEdit.NotifierId = issue.NotifierId;
+                issueToEdit.Companyid = issueToEdit.Companyid;
+                context.SaveChanges();
+                return RedirectToAction("List","Notification", new { issueId });
+            }
+            CreateIssueViewModel issueViewModel = new CreateIssueViewModel()
+            {
+                Companies = context.Companies.ToList(),
+                Users = context.Users.ToList(),
+                Agents = context.Users.Where(x => x.CompanyId == 1).ToList(),
+                Issue = issue
+            };
+            return View(issueViewModel);
         }
     }
 }

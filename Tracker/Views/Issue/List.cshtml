@@ -7,6 +7,8 @@
 
 <h2>Zgłoszenia</h2>
 
+
+
 <p>
     <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Issue")'">Dodaj</button>
 </p>
@@ -14,8 +16,8 @@
     <tr class="info">
         <th>@Html.DisplayNameFor(model => model.Title)</th>
         <th>@Html.DisplayNameFor(model => model.Description)</th>
-        <th>@Html.DisplayNameFor(model => model.Agent.Lastname)</th>
-        <th>@Html.DisplayNameFor(model => model.Notifier.Lastname)</th>
+        <th>Agent</th>
+        <th>Zgłoszone przez</th>
         <th>@Html.DisplayNameFor(model => model.Status.Name)</th>
         <th></th>
     </tr>
@@ -25,8 +27,8 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Title)</td>
             <td>@Html.DisplayFor(modelItem => item.Description)</td>
-            <td>@Html.DisplayFor(modelItem => item.Agent.Lastname)</td>
-            <td>@Html.DisplayFor(modelItem => item.Notifier.Lastname)</td>
+            <td>@($"{Html.DisplayFor(modelItem => item.Agent.FirstName)} {Html.DisplayFor(modelItem => item.Agent.Lastname)}")</td>
+            <td>@($"{Html.DisplayFor(modelItem => item.Notifier.FirstName)} {Html.DisplayFor(modelItem => item.Notifier.Lastname)}")</td>
             <td>@Html.DisplayFor(modelItem => item.Status.Name)</td>
             <td>
                 <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("List", "Notification", new {issueId = item.Id })'">Szczegóły</button>

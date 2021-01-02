@@ -82,8 +82,6 @@ namespace Tracker.Controllers
                 userToEdit.Email = user.Email;
                 userToEdit.CompanyId = user.CompanyId;
                 userToEdit.UserTypeId = userToEdit.UserTypeId;
-                userToEdit.Company = context.Companies.Where(x => x.Id == user.CompanyId).FirstOrDefault();
-                userToEdit.UserType = context.UserTypes.Where(x => x.Id == user.UserTypeId).FirstOrDefault();
                 context.SaveChanges();
                 return RedirectToAction("List");
             }
