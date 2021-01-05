@@ -11,6 +11,8 @@ namespace Tracker.Controllers
         
         public ActionResult Create()
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             CreateIssueViewModel createIssueViewModel = new CreateIssueViewModel()
             {
@@ -46,8 +48,10 @@ namespace Tracker.Controllers
             }
         }
 
-        public ViewResult List()
+        public ActionResult List()
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             var issues = context.Issues
                 .Include(x => x.Status)
@@ -68,6 +72,8 @@ namespace Tracker.Controllers
 
         public ActionResult Edit(int issueId)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             CreateIssueViewModel IssueViewModel = new CreateIssueViewModel()
             {

@@ -21,10 +21,17 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Zgłoszenia", "List", "Issue")</li>
-                    <li>@Html.ActionLink("Użytkownicy", "List", "User")</li>
-                    <li>@Html.ActionLink("Firmy", "List", "Company")</li>
-                </ul>
+                    @if (Session["User"] != null)
+                    {
+                        <li>@Html.ActionLink("Zgłoszenia", "List", "Issue")</li>
+                        <li>@Html.ActionLink("Użytkownicy", "List", "User")</li>
+                        <li>@Html.ActionLink("Firmy", "List", "Company")</li>
+                    }
+                        @if (Session["User"] == null)
+                        {
+                            <li>@Html.ActionLink("Zaloguj się", "Login", "Account")</li>
+                        }
+                    </ul>
             </div>
         </div>
     </div>

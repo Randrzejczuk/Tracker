@@ -9,6 +9,8 @@ namespace Tracker.Controllers
     {
         public ActionResult Create()
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             CreateUserViewModel userViewModel = new CreateUserViewModel
             {
@@ -40,6 +42,8 @@ namespace Tracker.Controllers
 
         public ActionResult List()
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             var users = context.Users;
             return View(users);
@@ -56,6 +60,8 @@ namespace Tracker.Controllers
 
         public ActionResult Edit(int userId)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             CreateUserViewModel userViewModel = new CreateUserViewModel
             {

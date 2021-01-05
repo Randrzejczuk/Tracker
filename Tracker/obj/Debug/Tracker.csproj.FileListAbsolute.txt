@@ -94,3 +94,7 @@ C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.dll
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.pdb
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.csprojAssemblyReference.cache
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.Migrations.DataDescriptions.resources
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Microsoft.AspNet.Identity.EntityFramework.xml

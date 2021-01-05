@@ -15,10 +15,10 @@
 <p class="lead">@Html.DisplayFor(model => model.Description)</p>
 
 <h5>Agent</h5>
-<p class="lead">@($"{Html.DisplayFor(model => model.Agent.FirstName)} {Html.DisplayFor(model => model.Agent.Lastname)}")</p>
+<p class="lead">@Html.DisplayFor(model => model.Agent.FullName)</p>
 
 <h5>Zgłoszone przez</h5>
-<p class="lead">@($"{Html.DisplayFor(model => model.Notifier.FirstName)} {Html.DisplayFor(model => model.Notifier.Lastname)}")</p>
+<p class="lead">@Html.DisplayFor(model => model.Notifier.FullName)</p>
 
 <h5>Firma zgłaszająca</h5>
 <p class="lead">@Html.DisplayFor(model => model.Company.Name)</p>

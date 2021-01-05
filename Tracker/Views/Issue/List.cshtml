@@ -27,8 +27,8 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.Title)</td>
             <td>@Html.DisplayFor(modelItem => item.Description)</td>
-            <td>@($"{Html.DisplayFor(modelItem => item.Agent.FirstName)} {Html.DisplayFor(modelItem => item.Agent.Lastname)}")</td>
-            <td>@($"{Html.DisplayFor(modelItem => item.Notifier.FirstName)} {Html.DisplayFor(modelItem => item.Notifier.Lastname)}")</td>
+            <td>@Html.DisplayFor(modelItem => item.Agent.FullName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Notifier.FullName)</td>
             <td>@Html.DisplayFor(modelItem => item.Status.Name)</td>
             <td>
                 <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("List", "Notification", new {issueId = item.Id })'">Szczegóły</button>

@@ -20,6 +20,7 @@ namespace Tracker.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage ="Wymagany prawidłowy jest adres Email.")]
         public string Email { get; set; }
         [Display(Name = "Numer telefonu")]
         public string PhoneNumber { get; set; }
@@ -28,7 +29,14 @@ namespace Tracker.Models
         public Company Company { get; set; }
         public int UserTypeId { get; set; }
         public UserType UserType { get; set; }
-
         public List<Notification> Notifications { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {Lastname}";
+            }
+        }
     }
 }

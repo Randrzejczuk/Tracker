@@ -18,24 +18,26 @@ namespace Tracker.ViewModels
         public string EndTime { get; set; }
         [Display(Name = "Pracownik")]
         public List<User> Workers { get; set; }
-        public List<string> Times = TimesToSelect();
 
-        public static List<string> TimesToSelect()
+        public List<string> Times
         {
-            List<string> results = new List<string>();
-            string element;
-            for(int i=0;i<24;i++)
+            get
             {
-                for (int j = 0; j < 60; j += 15)
+                List<string> results = new List<string>();
+                string element;
+                for (int i = 0; i < 24; i++)
                 {
-                    if(i<10)
-                        element = j == 0 ? $"0{i}:00" : $"0{i}:{j}";
-                    else
-                        element = j == 0 ? $"{i}:00" : $"{i}:{j}";
-                    results.Add(element);
-                }  
+                    for (int j = 0; j < 60; j += 15)
+                    {
+                        if (i < 10)
+                            element = j == 0 ? $"0{i}:00" : $"0{i}:{j}";
+                        else
+                            element = j == 0 ? $"{i}:00" : $"{i}:{j}";
+                        results.Add(element);
+                    }
+                }
+                return (results);
             }
-            return (results);
         }
     }
 }

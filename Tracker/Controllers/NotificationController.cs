@@ -14,6 +14,8 @@ namespace Tracker.Controllers
 
         public ActionResult Create(int issueId)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             CreateNotificationViewModel createNotificationViewModel = new CreateNotificationViewModel()
             {
@@ -56,6 +58,8 @@ namespace Tracker.Controllers
 
         public ActionResult List(int issueId)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             Issue issue = context.Issues.Where(x => x.Id == issueId)
                 .Include(x=>x.Notifications)
@@ -79,6 +83,8 @@ namespace Tracker.Controllers
 
         public ActionResult Edit(int notificationId)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             Notification notificationToEdit = context.Notifications.Where(x => x.Id == notificationId).FirstOrDefault();
             CreateNotificationViewModel notificationViewModel = new CreateNotificationViewModel
