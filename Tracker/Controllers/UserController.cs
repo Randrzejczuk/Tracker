@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using Tracker.Models;
 using Tracker.ViewModels;
@@ -51,6 +52,8 @@ namespace Tracker.Controllers
 
         public ActionResult Delete(User user)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             User userToDelete = context.Users.Where(x => x.Id == user.Id).FirstOrDefault();
             context.Users.Remove(userToDelete);
@@ -83,7 +86,6 @@ namespace Tracker.Controllers
                 userToEdit.FirstName = user.FirstName;
                 userToEdit.Lastname = user.Lastname;
                 userToEdit.Login = user.Login;
-                userToEdit.Password = user.Password;
                 userToEdit.PhoneNumber = user.PhoneNumber;
                 userToEdit.Email = user.Email;
                 userToEdit.CompanyId = user.CompanyId;
@@ -98,6 +100,19 @@ namespace Tracker.Controllers
                 User = context.Users.Where(x => x.Id == userId).FirstOrDefault()
             };
             return View(userViewModel);
+        }
+        public ActionResult Details(int userId)
+        {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
+            var context = new TrackerDbContext();
+            User user = context.Users
+                .Where(x => x.Id == userId)
+                .Include(x=>x.Notifications)
+                .Include(x => x.Company)
+                .Include(x => x.UserType)
+                .FirstOrDefault();
+            return View(user);
         }
     }
 }

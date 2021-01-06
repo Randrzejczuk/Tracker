@@ -1,0 +1,26 @@
+﻿@model Tracker.Models.Notification
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.Issue.Title)</h2>
+
+<div>
+    <hr />
+    <h5>Pracownik</h5>
+    <p class="lead">@Html.DisplayFor(model => model.Worker.FullName)</p>
+
+    <h5>@Html.DisplayNameFor(model => model.WorkDone)</h5>
+    <p class="lead">@Html.DisplayFor(model => model.WorkDone)</p>
+
+    <h5>@Html.DisplayNameFor(model => model.StartTime)</h5>
+    <p class="lead">@Html.DisplayFor(model => model.StartTime)</p>
+
+    <h5>@Html.DisplayNameFor(model => model.EndTime)</h5>
+    <p class="lead">@Html.DisplayFor(model => model.EndTime)</p>
+</div>
+<p>
+    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Details", "Issue", new {issueId = Model.IssueId })'">Powrót</button>
+</p>

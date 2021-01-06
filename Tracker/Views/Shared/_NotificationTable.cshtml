@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Tracker.Models.Notification>
+
+    <table class="table table-striped table-hover">
+        <tr class="info">
+            <th>Wykonana praca</th>
+            <th>Pracownik</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.OrderBy(x => x.Id))
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.WorkDone)</td>
+                <td>@($"{Html.DisplayFor(modelItem => item.Worker.FirstName)} {Html.DisplayFor(modelItem => item.Worker.Lastname)}")</td>
+                <td align="right">
+                    <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Notification", new {notificationId = item.Id })'">Szczegóły</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Notification", new {notificationId = item.Id })'">Edytuj</button>
+                    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Delete", "Notification",new {id = item.Id })'">Usuń</button>
+                </td>
+            </tr>
+        }
+    </table>

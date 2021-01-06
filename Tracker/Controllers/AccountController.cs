@@ -55,5 +55,10 @@ namespace Tracker.Controllers
             else
             return View(viewModel);
         }
+        public ActionResult Logout()
+        {
+            Session["User"] = null;
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

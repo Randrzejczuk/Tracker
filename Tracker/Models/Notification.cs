@@ -11,11 +11,11 @@ namespace Tracker.Models
         public string WorkDone { get; set; }
         [Display(Name = "Czas rozpoczęcia pracy")]
         [Required(ErrorMessage = "Wymagane jest podanie czasu rozpoczęcia pracy.")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm}")]
         public DateTime StartTime { get; set; }
         [Display(Name = "Czas zakończenia pracy")]
         [Required(ErrorMessage = "Wymagane jest podanie czasu zakończenia pracy.")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]  
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy hh:mm}")]  
         public DateTime EndTime { get; set; }
 
         public int IssueId { get; set; }

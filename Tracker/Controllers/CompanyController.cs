@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,6 +13,8 @@ namespace Tracker.Controllers
         // GET: Company
         public ActionResult Create()
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             return View();
         }
 
@@ -31,6 +34,8 @@ namespace Tracker.Controllers
 
         public ActionResult List()
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             var companies = context.Companies;
             companies.OrderBy(x=>x.Name);
@@ -39,16 +44,23 @@ namespace Tracker.Controllers
 
         public ActionResult Delete(Company company)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
-            Company companyToDelete = context.Companies.Where(x => x.Id == company.Id).FirstOrDefault();
-            context.Companies.Remove(companyToDelete);
-            context.SaveChanges();
+            if (company.Id != 1)
+            {
+                Company companyToDelete = context.Companies.Where(x => x.Id == company.Id).FirstOrDefault();
+                context.Companies.Remove(companyToDelete);
+                context.SaveChanges();
+            }
             return RedirectToAction("List");
         }
 
         [HttpGet]
         public ActionResult Edit(int companyId)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             Company company = context.Companies.Where(x => x.Id == companyId).FirstOrDefault();
             return View(company);
@@ -67,6 +79,17 @@ namespace Tracker.Controllers
                 return RedirectToAction("List");
             }
             return View();
+        }
+        public ActionResult Details(int companyId)
+        {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
+            var context = new TrackerDbContext();
+            Company company = context.Companies
+                .Where(x => x.Id == companyId)
+                .Include(x => x.Employees)
+                .FirstOrDefault();
+            return View(company);
         }
     }
 }

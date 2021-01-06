@@ -47,7 +47,7 @@ namespace Tracker.Controllers
                 }
                 context.Notifications.Add(viewModel.Notification);
                 context.SaveChanges();
-                return RedirectToAction("List", new { issueId = viewModel.Notification.IssueId });
+                return RedirectToAction("Details","Issue", new { issueId = viewModel.Notification.IssueId });
             }
             else
             {
@@ -56,29 +56,16 @@ namespace Tracker.Controllers
             }
         }
 
-        public ActionResult List(int issueId)
+        public ActionResult Delete(Notification notification)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
-            var context = new TrackerDbContext();
-            Issue issue = context.Issues.Where(x => x.Id == issueId)
-                .Include(x=>x.Notifications)
-                .Include(x=>x.Agent)
-                .Include(x=>x.Notifier)
-                .Include(x=>x.Status)
-                .Include(x=>x.Company)
-                .FirstOrDefault();
-            return View(issue);
-        }
-
-        public ActionResult Delete(Notification notification)
-        {
             var context = new TrackerDbContext();
             Notification notificationToDelete = context.Notifications.Where(x => x.Id == notification.Id).FirstOrDefault();
             int issue = notificationToDelete.IssueId;
             context.Notifications.Remove(notificationToDelete);
             context.SaveChanges();
-            return RedirectToAction("List", new { issueId = issue });
+            return RedirectToAction("Details","Issue", new { issueId = issue });
         }
 
         public ActionResult Edit(int notificationId)
@@ -121,13 +108,25 @@ namespace Tracker.Controllers
                     notificationToEdit.EndTime = notificationToEdit.EndTime.AddMinutes(int.Parse(viewModel.EndTime.Substring(3, 2)));
                 }
                 context.SaveChanges();
-                return RedirectToAction("List", new { issueId = viewModel.Notification.IssueId });
+                return RedirectToAction("Details","Issue", new { issueId = viewModel.Notification.IssueId });
             }
             else 
             {
                 viewModel.Workers = context.Users.Where(x => x.CompanyId == 1).ToList();
                 return View(viewModel);
             }
+        }
+        public ActionResult Details(int notificationId)
+        {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
+            var context = new TrackerDbContext();
+            Notification notification = context.Notifications
+                .Where(x => x.Id == notificationId)
+                .Include(x => x.Issue)
+                .Include(x => x.Worker)
+                .FirstOrDefault();
+            return View(notification);
         }
     }
 }

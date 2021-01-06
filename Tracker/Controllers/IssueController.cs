@@ -62,6 +62,8 @@ namespace Tracker.Controllers
 
         public ActionResult Delete(Issue issue)
         {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             Issue issueToDelete = context.Issues.Where(x => x.Id == issue.Id).Include(x=>x.Notifications).FirstOrDefault();
             context.Notifications.RemoveRange(issueToDelete.Notifications);
@@ -98,7 +100,7 @@ namespace Tracker.Controllers
                 issueToEdit.NotifierId = issue.NotifierId;
                 issueToEdit.Companyid = issueToEdit.Companyid;
                 context.SaveChanges();
-                return RedirectToAction("List","Notification", new { issueId });
+                return RedirectToAction("List");
             }
             CreateIssueViewModel issueViewModel = new CreateIssueViewModel()
             {
@@ -108,6 +110,20 @@ namespace Tracker.Controllers
                 Issue = issue
             };
             return View(issueViewModel);
+        }
+        public ActionResult Details(int issueId)
+        {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
+            var context = new TrackerDbContext();
+            Issue issue = context.Issues.Where(x => x.Id == issueId)
+                .Include(x => x.Notifications)
+                .Include(x => x.Agent)
+                .Include(x => x.Notifier)
+                .Include(x => x.Status)
+                .Include(x => x.Company)
+                .FirstOrDefault();
+            return View(issue);
         }
     }
 }

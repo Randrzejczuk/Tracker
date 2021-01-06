@@ -13,12 +13,7 @@ namespace Tracker.Models
         [Required(ErrorMessage = "Wymagane jest podanie nazwiska.")]
         public string Lastname { get; set; }
         [Display(Name = "Login")]
-        [Required(ErrorMessage = "Wymagane jest podanie loginu.")]
         public string Login { get; set; }
-        [Display(Name = "Hasło")]
-        [Required(ErrorMessage = "Wymagane jest podanie hasła.")]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
         [Display(Name = "Email")]
         [EmailAddress(ErrorMessage ="Wymagany prawidłowy jest adres Email.")]
         public string Email { get; set; }

@@ -161,6 +161,10 @@
     <Compile Include="Migrations\202012121125249_DataDescriptions.designer.cs">
       <DependentUpon>202012121125249_DataDescriptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101061155331_UserUpdate.cs" />
+    <Compile Include="Migrations\202101061155331_UserUpdate.designer.cs">
+      <DependentUpon>202101061155331_UserUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Issue.cs" />
@@ -344,11 +348,17 @@
     <Content Include="Views\Company\Edit.cshtml" />
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
-    <Content Include="Views\Notification\List.cshtml" />
+    <Content Include="Views\Issue\Details.cshtml" />
     <Content Include="Views\Notification\Create.cshtml" />
     <Content Include="Views\Notification\Edit.cshtml" />
     <Content Include="Views\Issue\Edit.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\Notification\Details.cshtml" />
+    <Content Include="Views\Shared\_NotificationTable.cshtml" />
+    <Content Include="Views\Shared\_UserTable.cshtml" />
+    <Content Include="Views\Company\Details.cshtml" />
+    <Content Include="Views\Shared\_IssueTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -375,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012121125249_DataDescriptions.resx">
       <DependentUpon>202012121125249_DataDescriptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101061155331_UserUpdate.resx">
+      <DependentUpon>202101061155331_UserUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,30 @@
+﻿@model Tracker.Models.User
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Html.DisplayFor(model => model.FullName)</h2>
+
+<div>
+    <hr />
+    <h5>@Html.DisplayNameFor(model => model.Company.Name)</h5>
+    <p class="lead">@Html.DisplayFor(model => model.Company.Name)</p>
+
+    <h5>@Html.DisplayNameFor(model => model.UserType.Name)</h5>
+    <p class="lead">@Html.DisplayFor(model => model.UserType.Name)</p>
+
+    <h5>@Html.DisplayNameFor(model => model.Email)</h5>
+    <p class="lead">@Html.DisplayFor(model => model.Email)</p>
+
+    <h5>@Html.DisplayNameFor(model => model.PhoneNumber)</h5>
+    <p class="lead">@Html.DisplayFor(model => model.PhoneNumber)</p>
+</div>
+<hr />
+<h2>Wpisy pracownika</h2>
+<hr />
+@Html.Partial("_NotificationTable",Model.Notifications)
+<p>
+    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("List", "User")'">Powrót</button>
+</p>

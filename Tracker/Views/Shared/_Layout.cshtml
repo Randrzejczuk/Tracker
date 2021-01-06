@@ -27,11 +27,18 @@
                         <li>@Html.ActionLink("Użytkownicy", "List", "User")</li>
                         <li>@Html.ActionLink("Firmy", "List", "Company")</li>
                     }
-                        @if (Session["User"] == null)
-                        {
-                            <li>@Html.ActionLink("Zaloguj się", "Login", "Account")</li>
-                        }
-                    </ul>
+                    
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (Session["User"] == null)
+                    {
+                        <li>@Html.ActionLink("Zaloguj się", "Login", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Wyloguj się", "Logout", "Account")</li>
+                    }
+                </ul>
             </div>
         </div>
     </div>

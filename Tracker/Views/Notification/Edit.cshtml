@@ -75,11 +75,9 @@
             </div>
         </div>
 
-
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("List", "Notification", new {issueId = Model.Notification.IssueId })'">Anuluj</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Details", "Issue", new {issueId = Model.Notification.IssueId })'">Anuluj</button>
                 <button type="submit" class="btn btn-primary">Zapisz</button>
             </div>
         </div>
