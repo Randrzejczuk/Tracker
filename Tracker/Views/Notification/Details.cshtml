@@ -20,6 +20,9 @@
 
     <h5>@Html.DisplayNameFor(model => model.EndTime)</h5>
     <p class="lead">@Html.DisplayFor(model => model.EndTime)</p>
+
+    <h5>@Html.DisplayNameFor(model => model.WorkTime)</h5>
+    <p class="lead">@Html.DisplayFor(model => model.WorkTime)</p>
 </div>
 <p>
     <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Details", "Issue", new {issueId = Model.IssueId })'">Powrót</button>

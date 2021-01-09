@@ -22,5 +22,14 @@ namespace Tracker.Models
         public Issue Issue { get; set; }
         public int WorkerId { get; set; }
         public User Worker { get; set; }
+
+        [Display(Name ="Czas pracy")]
+        public TimeSpan WorkTime
+        {
+            get
+            {
+                return EndTime - StartTime;
+            }
+        }
     }
 }

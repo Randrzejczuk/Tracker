@@ -46,7 +46,7 @@ namespace Tracker.Controllers
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
-            var users = context.Users;
+            var users = context.Users.ToList().AsQueryable().OrderBy(x => x.Lastname).ToList();
             return View(users);
         }
 

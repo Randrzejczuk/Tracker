@@ -9,7 +9,7 @@
 
 <div>
     <hr />
-    <h5>Opis</h5>
+    <h5>@Html.DisplayNameFor(model => model.Description)</h5>
     <p class="lead">@Html.DisplayFor(model => model.Description)</p>
 
     <h5>Agent</h5>
@@ -21,8 +21,9 @@
     <h5>Firma zgłaszająca</h5>
     <p class="lead">@Html.DisplayFor(model => model.Company.Name)</p>
 
-    <h5>Status</h5>
+    <h5>@Html.DisplayNameFor(model => model.Status.Name)</h5>
     <p class="lead">@Html.DisplayFor(model => model.Status.Name)</p>
+
 </div>
 
 <hr />

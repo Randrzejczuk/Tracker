@@ -9,7 +9,7 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model.OrderBy(x => x.Id))
+        @foreach (var item in Model)
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.Title)</td>
