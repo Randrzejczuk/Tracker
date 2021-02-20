@@ -167,6 +167,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CustomTimeValidator.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Status.cs" />

@@ -14,7 +14,8 @@ namespace Tracker.ViewModels
         public DateTime Date { get; set; }
         [Display(Name = "Czas rozpoczęcia Pracy")]
         public string StartTime { get; set; }
-        [Display(Name = "Czas Zakończenia Pracy")]
+        [Display(Name = "Czas zakończenia rracy")]
+        [CustomTimeValidator]
         public string EndTime { get; set; }
         [Display(Name = "Pracownik")]
         public List<User> Workers { get; set; }

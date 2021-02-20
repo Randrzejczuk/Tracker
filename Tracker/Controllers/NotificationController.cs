@@ -79,8 +79,8 @@ namespace Tracker.Controllers
                 Workers = context.Users.Where(x => x.CompanyId == 1).ToList(),
                 Notification = notificationToEdit,
                 Date = notificationToEdit.StartTime.Date,
-                StartTime = notificationToEdit.StartTime.ToString("hh:mm"),
-                EndTime = notificationToEdit.EndTime.ToString("hh:mm")
+                StartTime = notificationToEdit.StartTime.ToString("HH:mm"),
+                EndTime = notificationToEdit.EndTime.ToString("HH:mm")
             };
             return View(notificationViewModel);
         }
@@ -99,6 +99,7 @@ namespace Tracker.Controllers
                 notificationToEdit.StartTime = viewModel.Date;
                 notificationToEdit.StartTime = notificationToEdit.StartTime.AddHours(int.Parse(viewModel.StartTime.Substring(0, 2)));
                 notificationToEdit.StartTime = notificationToEdit.StartTime.AddMinutes(int.Parse(viewModel.StartTime.Substring(3, 2)));
+
                 notificationToEdit.EndTime = viewModel.Date;
                 if (viewModel.EndTime == "00:00")
                     notificationToEdit.EndTime = notificationToEdit.EndTime.AddDays(1);
