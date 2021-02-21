@@ -2,9 +2,30 @@
 
     <table class="table table-striped table-hover">
         <tr class="info">
-            <th>Pracownik</th>
-            <th>Data</th>
-            <th>@Html.DisplayNameFor(model => model.WorkTime)</th>
+            <th>
+                @Html.ActionLink("Pracownik", ViewContext.RouteData.Values["action"].ToString(), new
+           {
+               sortOrder = ViewBag.WorkerSortParm,
+               issueId = ViewBag.IssueId,
+               userId = ViewBag.UserId
+           })
+            </th>
+            <th>
+                @Html.ActionLink("Data", ViewContext.RouteData.Values["action"].ToString(), new
+           {
+               sortOrder = ViewBag.DateSortParm,
+               issueId = ViewBag.IssueId,
+               userId = ViewBag.UserId
+           })
+            </th>
+            <th>
+                @Html.ActionLink("Czas pracy", ViewContext.RouteData.Values["action"].ToString(), new
+           {
+               sortOrder = ViewBag.WorkTimeSortParm,
+               issueId = ViewBag.IssueId,
+               userId = ViewBag.UserId
+                })
+            </th>
             <th></th>
         </tr>
 

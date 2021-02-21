@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Tracker.Models;
@@ -41,12 +42,41 @@ namespace Tracker.Controllers
             return View(userViewModel);
         }
 
-        public ActionResult List()
+        public ActionResult List(string sortOrder)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
+
             var context = new TrackerDbContext();
-            var users = context.Users.ToList().AsQueryable().OrderBy(x => x.Lastname).ToList();
+            var users = context.Users
+                .Include(x => x.Company)
+                .ToList();
+
+            ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";
+            ViewBag.FirstNameSortParm = sortOrder == "fname" ? "fname_desc" : "fname";
+            ViewBag.CompanySortParm = sortOrder == "company" ? "company_desc" : "company";
+
+            switch (sortOrder)
+            {
+                case "fname":
+                    users = users.OrderBy(x => x.FirstName).ToList();
+                    break;
+                case "fname_desc":
+                    users = users.OrderByDescending(x => x.FirstName).ToList();
+                    break;
+                case "company":
+                    users = users.OrderBy(x => x.Company.Name).ToList();
+                    break;
+                case "company_desc":
+                    users = users.OrderByDescending(x => x.Company.Name).ToList();
+                    break;
+                case "lname_desc":
+                    users = users.OrderByDescending(x => x.Lastname).ToList();
+                    break;
+                default:
+                    users = users.OrderBy(x => x.Lastname).ToList();
+                    break;
+            }
             return View(users);
         }
 
@@ -101,7 +131,7 @@ namespace Tracker.Controllers
             };
             return View(userViewModel);
         }
-        public ActionResult Details(int userId)
+        public ActionResult Details(int userId, string sortOrder)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -112,6 +142,35 @@ namespace Tracker.Controllers
                 .Include(x => x.Company)
                 .Include(x => x.UserType)
                 .FirstOrDefault();
+
+            ViewBag.UserId = userId;
+            ViewBag.WorkerSortParm = String.IsNullOrEmpty(sortOrder) ? "worker_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
+            ViewBag.WorkTimeSortParm = sortOrder == "worktime" ? "worktime_desc" : "worktime";
+
+
+            switch (sortOrder)
+            {
+                case "date":
+                    user.Notifications = user.Notifications.OrderBy(x => x.StartTime.Date).ToList();
+                    break;
+                case "date_desc":
+                    user.Notifications = user.Notifications.OrderByDescending(x => x.StartTime.Date).ToList();
+                    break;
+                case "worktime":
+                    user.Notifications = user.Notifications.OrderBy(x => x.WorkTime).ToList();
+                    break;
+                case "worktime_desc":
+                    user.Notifications = user.Notifications.OrderByDescending(x => x.WorkTime).ToList();
+                    break;
+                case "worker_desc":
+                    user.Notifications = user.Notifications.OrderByDescending(x => x.Worker.Lastname).ToList();
+                    break;
+                default:
+                    user.Notifications = user.Notifications.OrderBy(x => x.Worker.Lastname).ToList();
+                    break;
+            }
+
             return View(user);
         }
     }

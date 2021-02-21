@@ -32,13 +32,25 @@ namespace Tracker.Controllers
             return View();
         }
 
-        public ActionResult List()
+        public ActionResult List(string sortOrder)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
+
             var context = new TrackerDbContext();
-            var companies = context.Companies;
-            companies.OrderBy(x=>x.Name);
+            var companies = context.Companies.ToList();
+
+            ViewBag.CompanySortParm = String.IsNullOrEmpty(sortOrder) ? "company_desc" : "";
+
+            switch (sortOrder)
+            {
+                case "company_desc":
+                    companies = companies.OrderByDescending(x => x.Name).ToList();
+                    break;
+                default:
+                    companies = companies.OrderBy(x => x.Name).ToList();
+                    break;
+            }
             return View(companies);
         }
 
@@ -80,15 +92,45 @@ namespace Tracker.Controllers
             }
             return View();
         }
-        public ActionResult Details(int companyId)
+        public ActionResult Details(int companyId, string sortOrder)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
+
             var context = new TrackerDbContext();
             Company company = context.Companies
                 .Where(x => x.Id == companyId)
                 .Include(x => x.Employees)
                 .FirstOrDefault();
+
+            ViewBag.CompanyId = companyId;
+            ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";
+            ViewBag.FirstNameSortParm = sortOrder == "fname" ? "fname_desc" : "fname";
+            ViewBag.CompanySortParm = sortOrder == "company" ? "company_desc" : "company";
+
+            switch (sortOrder)
+            {
+                case "fname":
+                    company.Employees = company.Employees.OrderBy(x => x.FirstName).ToList();
+                    break;
+                case "fname_desc":
+                    company.Employees = company.Employees.OrderByDescending(x => x.FirstName).ToList();
+                    break;
+                case "company":
+                    company.Employees = company.Employees.OrderBy(x => x.Company.Name).ToList();
+                    break;
+                case "company_desc":
+                    company.Employees = company.Employees.OrderByDescending(x => x.Company.Name).ToList();
+                    break;
+                case "lname_desc":
+                    company.Employees = company.Employees.OrderByDescending(x => x.Lastname).ToList();
+                    break;
+                default:
+                    company.Employees = company.Employees.OrderBy(x => x.Lastname).ToList();
+                    break;
+            }
+
+            
             return View(company);
         }
     }

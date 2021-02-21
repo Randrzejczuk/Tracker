@@ -24,6 +24,7 @@ namespace Tracker.Models
         public Company Company { get; set; }
         public int UserTypeId { get; set; }
         public UserType UserType { get; set; }
+
         public List<Notification> Notifications { get; set; }
 
         public string FullName

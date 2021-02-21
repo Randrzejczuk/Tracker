@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Tracker.Models;
 using Tracker.ViewModels;
 using System.Data.Entity;
+using System;
 
 namespace Tracker.Controllers
 {
@@ -48,15 +49,49 @@ namespace Tracker.Controllers
             }
         }
 
-        public ActionResult List()
+        public ActionResult List(string sortOrder)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             var issues = context.Issues
                 .Include(x => x.Status)
-                .Include(x=>x.Notifier)
-                .Include(x=>x.Agent);
+                .Include(x => x.Notifier)
+                .Include(x => x.Agent)
+                .ToList();
+
+            ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.AgentSortParm = sortOrder == "agent" ? "agent_desc" : "agent";
+            ViewBag.NotifierSortParm = sortOrder == "notifier" ? "notifier_desc" : "notifier";
+            ViewBag.StatusSortParm = sortOrder == "status" ? "status_desc" : "status";
+
+            switch (sortOrder)
+            {
+                case "agent":
+                    issues = issues.OrderBy(x => x.Agent.Lastname).ToList();
+                    break;
+                case "agent_desc":
+                    issues = issues.OrderByDescending(x => x.Agent.Lastname).ToList();
+                    break;
+                case "notifier":
+                    issues = issues.OrderBy(x => x.Notifier.Lastname).ToList();
+                    break;
+                case "notifier_desc":
+                    issues = issues.OrderByDescending(x => x.Notifier.Lastname).ToList();
+                    break;
+                case "status":
+                    issues = issues.OrderBy(x => x.Status.Name).ToList();
+                    break;
+                case "status_desc":
+                    issues = issues.OrderByDescending(x => x.Status.Name).ToList();
+                    break;
+                case "title_desc":
+                    issues = issues.OrderByDescending(x => x.Title).ToList();
+                    break;
+                default:
+                    issues = issues.OrderBy(x => x.Title).ToList();
+                    break;
+            }
             return View(issues);
         }
 
@@ -111,7 +146,7 @@ namespace Tracker.Controllers
             };
             return View(issueViewModel);
         }
-        public ActionResult Details(int issueId)
+        public ActionResult Details(int issueId, string sortOrder)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -123,6 +158,35 @@ namespace Tracker.Controllers
                 .Include(x => x.Status)
                 .Include(x => x.Company)
                 .FirstOrDefault();
+
+            ViewBag.IssueId = issueId;
+            ViewBag.WorkerSortParm = String.IsNullOrEmpty(sortOrder) ? "worker_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
+            ViewBag.WorkTimeSortParm = sortOrder == "worktime" ? "worktime_desc" : "worktime";
+
+
+            switch (sortOrder)
+            {
+                case "date":
+                    issue.Notifications = issue.Notifications.OrderBy(x => x.StartTime.Date).ToList();
+                    break;
+                case "date_desc":
+                    issue.Notifications = issue.Notifications.OrderByDescending(x => x.StartTime.Date).ToList();
+                    break;
+                case "worktime":
+                    issue.Notifications = issue.Notifications.OrderBy(x => x.WorkTime).ToList();
+                    break;
+                case "worktime_desc":
+                    issue.Notifications = issue.Notifications.OrderByDescending(x => x.WorkTime).ToList();
+                    break;
+                case "worker_desc":
+                    issue.Notifications = issue.Notifications.OrderByDescending(x => x.Worker.Lastname).ToList();
+                    break;
+                default:
+                    issue.Notifications = issue.Notifications.OrderBy(x => x.Worker.Lastname).ToList();
+                    break;
+            }
+
             return View(issue);
         }
     }

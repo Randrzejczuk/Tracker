@@ -14,12 +14,15 @@
 <table class="table table-striped table-hover">
     <tr class="info">
         <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
+            @Html.ActionLink("Nazwa firmy", "List", new
+            {
+                   sortOrder = ViewBag.CompanySortParm,
+            })
+          </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model.OrderBy(x => x.Name))
+    @foreach (var item in Model)
     {
         <tr>
             <td>

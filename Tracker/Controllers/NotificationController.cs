@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Tracker.Models;
 using Tracker.ViewModels;
 using System.Data.Entity;
+using System;
 
 namespace Tracker.Controllers
 {
@@ -35,15 +36,13 @@ namespace Tracker.Controllers
             if (ModelState.IsValid)
             {
                 viewModel.Notification.StartTime = viewModel.Date;
-                viewModel.Notification.StartTime = viewModel.Notification.StartTime.AddHours(int.Parse(viewModel.StartTime.Substring(0, 2)));
-                viewModel.Notification.StartTime = viewModel.Notification.StartTime.AddMinutes(int.Parse(viewModel.StartTime.Substring(3, 2)));
+                viewModel.Notification.StartTime = viewModel.Notification.StartTime.Add(TimeSpan.Parse(viewModel.StartTime.Substring(0, 5)));
                 viewModel.Notification.EndTime = viewModel.Date;
                 if (viewModel.EndTime == "00:00")
                     viewModel.Notification.EndTime = viewModel.Notification.EndTime.AddDays(1);
                 else
                 {
-                    viewModel.Notification.EndTime = viewModel.Notification.EndTime.AddHours(int.Parse(viewModel.EndTime.Substring(0, 2)));
-                    viewModel.Notification.EndTime = viewModel.Notification.EndTime.AddMinutes(int.Parse(viewModel.EndTime.Substring(3, 2)));
+                    viewModel.Notification.EndTime = viewModel.Notification.EndTime.Add(TimeSpan.Parse(viewModel.EndTime.Substring(0, 5)));
                 }
                 context.Notifications.Add(viewModel.Notification);
                 context.SaveChanges();
@@ -97,16 +96,14 @@ namespace Tracker.Controllers
                 notificationToEdit.WorkDone = viewModel.Notification.WorkDone;
 
                 notificationToEdit.StartTime = viewModel.Date;
-                notificationToEdit.StartTime = notificationToEdit.StartTime.AddHours(int.Parse(viewModel.StartTime.Substring(0, 2)));
-                notificationToEdit.StartTime = notificationToEdit.StartTime.AddMinutes(int.Parse(viewModel.StartTime.Substring(3, 2)));
+                notificationToEdit.StartTime = notificationToEdit.StartTime.Add(TimeSpan.Parse(viewModel.StartTime.Substring(0, 5)));
 
                 notificationToEdit.EndTime = viewModel.Date;
                 if (viewModel.EndTime == "00:00")
                     notificationToEdit.EndTime = notificationToEdit.EndTime.AddDays(1);
                 else
                 {
-                    notificationToEdit.EndTime = notificationToEdit.EndTime.AddHours(int.Parse(viewModel.EndTime.Substring(0, 2)));
-                    notificationToEdit.EndTime = notificationToEdit.EndTime.AddMinutes(int.Parse(viewModel.EndTime.Substring(3, 2)));
+                    notificationToEdit.EndTime = notificationToEdit.EndTime.Add(TimeSpan.Parse(viewModel.EndTime.Substring(0, 5)));
                 }
                 context.SaveChanges();
                 return RedirectToAction("Details","Issue", new { issueId = viewModel.Notification.IssueId });

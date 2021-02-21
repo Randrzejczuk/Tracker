@@ -4,6 +4,7 @@ using Tracker.ViewModels;
 
 namespace Tracker.Models
 {
+    // Custom validator, that checks if end date of notification is older than start date.
     public class CustomTimeValidator : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
