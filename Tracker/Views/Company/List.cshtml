@@ -6,19 +6,37 @@
 }
 
 <h2>Lista Firm</h2>
-
 <p>
-    <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Company")'">Dodaj</button>
-</p>
+    <div style="float: left; width: 80%;">
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Company")'">Dodaj</button>
+    </div>
+    <div style="float: right; width: 20%;">
+        <table>
+            <tr>
+                @using (Html.BeginForm())
+                {
+                    <td>
+                        @Html.Editor("searchString", null, new { htmlAttributes = new { @class = "form-control", } })
+                    </td>
+                    <td align="right">
+                        <button type="submit" class="btn btn-secondary">Wyszukaj</button>
+                    </td>
+                }
+                </tr>
+        </table>
+    </div><br />
+</p><br />
 <hr />
+
 <table class="table table-striped table-hover">
     <tr class="info">
         <th>
             @Html.ActionLink("Nazwa firmy", "List", new
             {
                    sortOrder = ViewBag.CompanySortParm,
+                   searchString = ViewBag.CompanySearchString
             })
-          </th>
+        </th>
         <th></th>
     </tr>
 

@@ -42,7 +42,7 @@ namespace Tracker.Controllers
             return View(userViewModel);
         }
 
-        public ActionResult List(string sortOrder)
+        public ActionResult List(string sortOrder, string searchString)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -55,6 +55,14 @@ namespace Tracker.Controllers
             ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";
             ViewBag.FirstNameSortParm = sortOrder == "fname" ? "fname_desc" : "fname";
             ViewBag.CompanySortParm = sortOrder == "company" ? "company_desc" : "company";
+
+            if (!String.IsNullOrEmpty(searchString))
+            { 
+                users = users.Where(x => x.FullName.ToLower().Contains(searchString.ToLower())
+                || x.Company.Name.ToLower().Contains(searchString.ToLower())
+                ).ToList();
+                ViewBag.UserSearchString = searchString;
+            }
 
             switch (sortOrder)
             {
@@ -131,7 +139,7 @@ namespace Tracker.Controllers
             };
             return View(userViewModel);
         }
-        public ActionResult Details(int userId, string sortOrder)
+        public ActionResult Details(int userId, string sortOrder,string searchString)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -148,6 +156,12 @@ namespace Tracker.Controllers
             ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
             ViewBag.WorkTimeSortParm = sortOrder == "worktime" ? "worktime_desc" : "worktime";
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                user.Notifications = user.Notifications.Where(x => x.Worker.FullName.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
+                ViewBag.NotificationSearchString = searchString;
+            }
 
             switch (sortOrder)
             {

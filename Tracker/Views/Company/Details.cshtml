@@ -8,6 +8,28 @@
 <h2>@Html.DisplayFor(model => model.Name)</h2>
 <hr />
 <h2>Pracownicy</h2>
+
+<p>
+    <div style="float: left; width: 80%;">
+        
+    </div>
+    <div style="float: right; width: 20%;">
+        <table>
+            <tr>
+                @using (Html.BeginForm())
+                {
+                    <td>
+                        @Html.Editor("searchString", null, new { htmlAttributes = new { @class = "form-control", } })
+                    </td>
+                    <td align="right">
+                        <button type="submit" class="btn btn-secondary">Wyszukaj</button>
+                    </td>
+                }
+            </tr>
+        </table>
+    </div><br />
+</p>
+<br />
 <hr />
 
 @Html.Partial("_UserTable", Model.Employees)

@@ -49,7 +49,7 @@ namespace Tracker.Controllers
             }
         }
 
-        public ActionResult List(string sortOrder)
+        public ActionResult List(string sortOrder, string searchString)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -64,6 +64,16 @@ namespace Tracker.Controllers
             ViewBag.AgentSortParm = sortOrder == "agent" ? "agent_desc" : "agent";
             ViewBag.NotifierSortParm = sortOrder == "notifier" ? "notifier_desc" : "notifier";
             ViewBag.StatusSortParm = sortOrder == "status" ? "status_desc" : "status";
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                issues = issues.Where(x => x.Title.ToLower().Contains(searchString.ToLower())
+                || x.Agent.FullName.ToLower().Contains(searchString.ToLower())
+                || x.Notifier.FullName.ToLower().Contains(searchString.ToLower())
+                || x.Status.Name.ToLower().Contains(searchString.ToLower())
+                ).ToList();
+                ViewBag.IssueSearchString = searchString;
+            }
 
             switch (sortOrder)
             {
@@ -146,7 +156,7 @@ namespace Tracker.Controllers
             };
             return View(issueViewModel);
         }
-        public ActionResult Details(int issueId, string sortOrder)
+        public ActionResult Details(int issueId, string sortOrder, string searchString)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -164,6 +174,12 @@ namespace Tracker.Controllers
             ViewBag.DateSortParm = sortOrder == "date" ? "date_desc" : "date";
             ViewBag.WorkTimeSortParm = sortOrder == "worktime" ? "worktime_desc" : "worktime";
 
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                issue.Notifications = issue.Notifications.Where(x => x.Worker.FullName.ToLower().Contains(searchString.ToLower()))
+                    .ToList();
+                ViewBag.NotificationSearchString = searchString;
+            }
 
             switch (sortOrder)
             {

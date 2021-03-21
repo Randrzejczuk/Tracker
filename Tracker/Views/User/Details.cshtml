@@ -23,8 +23,31 @@
 </div>
 <hr />
 <h2>Wpisy pracownika</h2>
+
+<p>
+    <div style="float: left; width: 80%;">
+
+    </div>
+    <div style="float: right; width: 20%;">
+        <table>
+            <tr>
+                @using (Html.BeginForm())
+                {
+                    <td>
+                        @Html.Editor("searchString", null, new { htmlAttributes = new { @class = "form-control", } })
+                    </td>
+                    <td align="right">
+                        <button type="submit" class="btn btn-secondary">Wyszukaj</button>
+                    </td>
+                }
+            </tr>
+        </table>
+    </div><br />
+</p>
+<br />
 <hr />
-@Html.Partial("_NotificationTable",Model.Notifications)
+
+@Html.Partial("_NotificationTable", Model.Notifications)
 <p>
     <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("List", "User")'">Powrót</button>
 </p>

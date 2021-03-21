@@ -4,15 +4,18 @@
         <tr class="info">
             <th>@Html.ActionLink("Imię", ViewContext.RouteData.Values["action"].ToString(), new { 
                sortOrder = ViewBag.FirstNameSortParm,
-               companyId = ViewBag.CompanyId
+               companyId = ViewBag.CompanyId,
+               searchString = ViewBag.UserSearchString
            })</th>
             <th>@Html.ActionLink("Nazwisko", ViewContext.RouteData.Values["action"].ToString(), new {
                sortOrder = ViewBag.LastNameSortParm,
-               companyId = ViewBag.CompanyId
+               companyId = ViewBag.CompanyId,
+               searchString = ViewBag.UserSearchString
            })</th>
             <th>@Html.ActionLink("Firma", ViewContext.RouteData.Values["action"].ToString(), new {
                sortOrder = ViewBag.CompanySortParm,
-               companyId = ViewBag.CompanyId
+               companyId = ViewBag.CompanyId,
+               searchString = ViewBag.UserSearchString
            })</th>
             <th></th>
         </tr>
