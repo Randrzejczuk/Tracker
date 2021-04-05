@@ -18,8 +18,8 @@ namespace Tracker.Controllers
             CreateIssueViewModel createIssueViewModel = new CreateIssueViewModel()
             {
                 Companies = context.Companies.ToList(),
-                Users = context.Users.ToList(),
-                Agents = context.Users.Where(x=>x.CompanyId==1).ToList()
+                Users = context.Users.Where(x => x.ArchivedTimeStamp == null).ToList(),
+                Agents = context.Users.Where(x => x.ArchivedTimeStamp == null).Where(x=>x.CompanyId==1).ToList()
             };
             return View(createIssueViewModel);
         }
@@ -55,6 +55,7 @@ namespace Tracker.Controllers
                 return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             var issues = context.Issues
+                .Where(x => x.ArchivedTimeStamp == null)
                 .Include(x => x.Status)
                 .Include(x => x.Notifier)
                 .Include(x => x.Agent)
@@ -105,14 +106,26 @@ namespace Tracker.Controllers
             return View(issues);
         }
 
-        public ActionResult Delete(Issue issue)
+        public ActionResult Reject(Issue issue)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
-            Issue issueToDelete = context.Issues.Where(x => x.Id == issue.Id).Include(x=>x.Notifications).FirstOrDefault();
-            context.Notifications.RemoveRange(issueToDelete.Notifications);
-            context.Issues.Remove(issueToDelete);
+            Status rejected = context.Statuses.Where(x => x.Id == 3).FirstOrDefault();
+            Issue issueToReject = context.Issues.Where(x => x.Id == issue.Id).Include(x=>x.Notifications).FirstOrDefault();
+            issueToReject.Archive(rejected);
+            context.SaveChanges();
+            return RedirectToAction("List");
+        }
+
+        public ActionResult Close(Issue issue)
+        {
+            if (Session["User"] == null)
+                return RedirectToAction("Login", "Account");
+            var context = new TrackerDbContext();
+            Status closed = context.Statuses.Where(x => x.Id == 4).FirstOrDefault();
+            Issue issueToClose = context.Issues.Where(x => x.Id == issue.Id).Include(x => x.Notifications).FirstOrDefault();
+            issueToClose.Archive(closed);
             context.SaveChanges();
             return RedirectToAction("List");
         }
@@ -125,8 +138,8 @@ namespace Tracker.Controllers
             CreateIssueViewModel IssueViewModel = new CreateIssueViewModel()
             {
                 Companies = context.Companies.ToList(),
-                Users = context.Users.ToList(),
-                Agents = context.Users.Where(x => x.CompanyId == 1).ToList(),
+                Users = context.Users.Where(x => x.ArchivedTimeStamp == null).ToList(),
+                Agents = context.Users.Where(x => x.ArchivedTimeStamp == null).Where(x => x.CompanyId == 1).ToList(),
                 Issue = context.Issues.Where(x=>x.Id==issueId).FirstOrDefault()
             };
             return View(IssueViewModel);
@@ -150,8 +163,8 @@ namespace Tracker.Controllers
             CreateIssueViewModel issueViewModel = new CreateIssueViewModel()
             {
                 Companies = context.Companies.ToList(),
-                Users = context.Users.ToList(),
-                Agents = context.Users.Where(x => x.CompanyId == 1).ToList(),
+                Users = context.Users.Where(x => x.ArchivedTimeStamp == null).ToList(),
+                Agents = context.Users.Where(x => x.ArchivedTimeStamp == null).Where(x => x.CompanyId == 1).ToList(),
                 Issue = issue
             };
             return View(issueViewModel);

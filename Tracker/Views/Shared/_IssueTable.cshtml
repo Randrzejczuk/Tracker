@@ -43,7 +43,8 @@
             <td align="right">
                 <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Issue", new {issueId = item.Id })'">Szczegóły</button>
                 <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Issue",new {issueId = item.Id })'">Edytuj</button>
-                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Delete", "Issue",new {id = item.Id })'">Usuń</button>
+                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Close", "Issue",new {id = item.Id })'">Zamknij</button>
+                <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Reject", "Issue",new {id = item.Id })'">Odrzuć</button>
             </td>
         </tr>
     }

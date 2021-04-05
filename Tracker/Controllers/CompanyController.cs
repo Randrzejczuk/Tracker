@@ -38,7 +38,10 @@ namespace Tracker.Controllers
                 return RedirectToAction("Login", "Account");
 
             var context = new TrackerDbContext();
-            var companies = context.Companies.ToList();
+            var companies = context
+                .Companies
+                .Where(x=>x.ArchivedTimeStamp == null)
+                .ToList();
 
             ViewBag.CompanySortParm = String.IsNullOrEmpty(sortOrder) ? "company_desc" : "";
 
@@ -68,7 +71,7 @@ namespace Tracker.Controllers
             if (company.Id != 1)
             {
                 Company companyToDelete = context.Companies.Where(x => x.Id == company.Id).FirstOrDefault();
-                context.Companies.Remove(companyToDelete);
+                companyToDelete.Archive();
                 context.SaveChanges();
             }
             return RedirectToAction("List");
@@ -109,6 +112,7 @@ namespace Tracker.Controllers
                 .Where(x => x.Id == companyId)
                 .Include(x => x.Employees)
                 .FirstOrDefault();
+            company.Employees = company.Employees.Where(x => x.ArchivedTimeStamp == null).ToList();
 
             ViewBag.CompanyId = companyId;
             ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";

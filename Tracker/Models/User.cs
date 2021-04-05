@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Tracker.Models
@@ -19,6 +20,7 @@ namespace Tracker.Models
         public string Email { get; set; }
         [Display(Name = "Numer telefonu")]
         public string PhoneNumber { get; set; }
+        public DateTime? ArchivedTimeStamp { get; set; }
 
         public int CompanyId { get; set; }
         public Company Company { get; set; }
@@ -33,6 +35,11 @@ namespace Tracker.Models
             {
                 return $"{FirstName} {Lastname}";
             }
+        }
+
+        public void Archive()
+        {
+            ArchivedTimeStamp = DateTime.Now;
         }
     }
 }

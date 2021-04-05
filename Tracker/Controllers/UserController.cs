@@ -16,7 +16,7 @@ namespace Tracker.Controllers
             var context = new TrackerDbContext();
             CreateUserViewModel userViewModel = new CreateUserViewModel
             {
-                Companies = context.Companies.ToList(),
+                Companies = context.Companies.Where(x=>x.ArchivedTimeStamp==null).ToList(),
                 UserTypes = context.UserTypes.ToList()
             };
             return View(userViewModel);
@@ -35,7 +35,7 @@ namespace Tracker.Controllers
             }
             CreateUserViewModel userViewModel = new CreateUserViewModel
             {
-                Companies = context.Companies.ToList(),
+                Companies = context.Companies.Where(x=>x.ArchivedTimeStamp==null).ToList(),
                 UserTypes = context.UserTypes.ToList(),
                 User = user
             };
@@ -49,6 +49,7 @@ namespace Tracker.Controllers
 
             var context = new TrackerDbContext();
             var users = context.Users
+                .Where(x=>x.ArchivedTimeStamp==null)
                 .Include(x => x.Company)
                 .ToList();
 
@@ -94,7 +95,7 @@ namespace Tracker.Controllers
                 return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             User userToDelete = context.Users.Where(x => x.Id == user.Id).FirstOrDefault();
-            context.Users.Remove(userToDelete);
+            userToDelete.Archive();
             context.SaveChanges();
             return RedirectToAction("List");
         }
@@ -106,7 +107,7 @@ namespace Tracker.Controllers
             var context = new TrackerDbContext();
             CreateUserViewModel userViewModel = new CreateUserViewModel
             {
-                Companies = context.Companies.ToList(),
+                Companies = context.Companies.Where(x=>x.ArchivedTimeStamp==null).ToList(),
                 UserTypes = context.UserTypes.ToList(),
                 User = context.Users.Where(x => x.Id == userId).FirstOrDefault()
             };
@@ -150,6 +151,7 @@ namespace Tracker.Controllers
                 .Include(x => x.Company)
                 .Include(x => x.UserType)
                 .FirstOrDefault();
+            user.Notifications = user.Notifications.Where(x => x.ArchivedTimeStamp == null).ToList();
 
             ViewBag.UserId = userId;
             ViewBag.WorkerSortParm = String.IsNullOrEmpty(sortOrder) ? "worker_desc" : "";

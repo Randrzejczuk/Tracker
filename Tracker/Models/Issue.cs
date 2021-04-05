@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Tracker.Models
@@ -12,6 +13,7 @@ namespace Tracker.Models
         [Display(Name = "Opis")]
         [Required(ErrorMessage = "Wymagane jest podanie opisu.")]
         public string Description { get; set; }
+        public DateTime? ArchivedTimeStamp { get; set; }
 
         public int StatusId { get; set; }
         public Status Status { get; set; }
@@ -23,5 +25,13 @@ namespace Tracker.Models
         public Company Company { get; set; }
 
         public List<Notification> Notifications { get; set; }
+
+        public void Archive(Status status)
+        {
+            Status = status;
+            foreach (var Notification in Notifications)
+                Notification.Archive();
+            ArchivedTimeStamp = DateTime.Now;
+        }
     }
 }

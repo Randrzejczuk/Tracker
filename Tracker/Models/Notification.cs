@@ -21,6 +21,8 @@ namespace Tracker.Models
         [Required(ErrorMessage = "Wymagane jest podanie czasu zakończenia pracy.")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:mm}")]  
         public DateTime EndTime { get; set; }
+        // Time of archivisation of notification
+        public DateTime? ArchivedTimeStamp { get; set; }
 
         // Id of the issue.
         public int IssueId { get; set; }
@@ -64,6 +66,12 @@ namespace Tracker.Models
                     return TimeSpan.Zero;
                 }
             }
+        }
+
+        // Method to set notification as archive
+        public void Archive()
+        {
+            ArchivedTimeStamp = DateTime.Now;
         }
     }
 }

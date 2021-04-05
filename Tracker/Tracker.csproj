@@ -165,6 +165,10 @@
     <Compile Include="Migrations\202101061155331_UserUpdate.designer.cs">
       <DependentUpon>202101061155331_UserUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104051039553_Archive.cs" />
+    <Compile Include="Migrations\202104051039553_Archive.designer.cs">
+      <DependentUpon>202104051039553_Archive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CustomTimeValidator.cs" />
@@ -387,6 +391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101061155331_UserUpdate.resx">
       <DependentUpon>202101061155331_UserUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104051039553_Archive.resx">
+      <DependentUpon>202104051039553_Archive.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

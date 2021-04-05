@@ -99,3 +99,4 @@ C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Microsoft.AspNet.Identity.C
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\bin\Microsoft.AspNet.Identity.EntityFramework.xml
 C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.Migrations.UserUpdate.resources
+C:\Users\Robert\Documents\GitHub\Tracker\Tracker\obj\Debug\Tracker.Migrations.Archive.resources

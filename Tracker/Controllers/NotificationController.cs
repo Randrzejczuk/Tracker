@@ -20,7 +20,7 @@ namespace Tracker.Controllers
             var context = new TrackerDbContext();
             CreateNotificationViewModel createNotificationViewModel = new CreateNotificationViewModel()
             {
-                Workers = context.Users.Where(x=>x.CompanyId==1).ToList(),
+                Workers = context.Users.Where(x => x.ArchivedTimeStamp == null).Where(x=>x.CompanyId==1).ToList(),
                 Notification = new Notification()
                 {
                     IssueId = issueId
@@ -53,18 +53,6 @@ namespace Tracker.Controllers
                 viewModel.Workers = context.Users.Where(x => x.CompanyId == 1).ToList();
                 return View(viewModel);
             }
-        }
-
-        public ActionResult Delete(Notification notification)
-        {
-            if (Session["User"] == null)
-                return RedirectToAction("Login", "Account");
-            var context = new TrackerDbContext();
-            Notification notificationToDelete = context.Notifications.Where(x => x.Id == notification.Id).FirstOrDefault();
-            int issue = notificationToDelete.IssueId;
-            context.Notifications.Remove(notificationToDelete);
-            context.SaveChanges();
-            return RedirectToAction("Details","Issue", new { issueId = issue });
         }
 
         public ActionResult Edit(int notificationId)
@@ -110,7 +98,7 @@ namespace Tracker.Controllers
             }
             else 
             {
-                viewModel.Workers = context.Users.Where(x => x.CompanyId == 1).ToList();
+                viewModel.Workers = context.Users.Where(x => x.ArchivedTimeStamp == null).Where(x => x.CompanyId == 1).ToList();
                 return View(viewModel);
             }
         }
