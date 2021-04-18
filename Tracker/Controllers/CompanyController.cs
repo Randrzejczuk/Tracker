@@ -32,16 +32,26 @@ namespace Tracker.Controllers
             return View();
         }
 
-        public ActionResult List(string sortOrder, string searchString)
+        public ActionResult List(string sortOrder, string searchString, bool? showArchive)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
 
             var context = new TrackerDbContext();
+
             var companies = context
                 .Companies
-                .Where(x=>x.ArchivedTimeStamp == null)
                 .ToList();
+
+            if (showArchive != true)
+            {
+                companies = companies.Where(x => x.ArchivedTimeStamp == null).ToList();
+                ViewBag.showArchive = false;
+            }
+            else
+            {
+                ViewBag.showArchive = true;
+            }
 
             ViewBag.CompanySortParm = String.IsNullOrEmpty(sortOrder) ? "company_desc" : "";
 
@@ -102,7 +112,7 @@ namespace Tracker.Controllers
             return View();
         }
 
-        public ActionResult Details(int companyId, string sortOrder, string searchString)
+        public ActionResult Details(int companyId, string sortOrder, string searchString, bool? showArchive)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -112,7 +122,17 @@ namespace Tracker.Controllers
                 .Where(x => x.Id == companyId)
                 .Include(x => x.Employees)
                 .FirstOrDefault();
-            company.Employees = company.Employees.Where(x => x.ArchivedTimeStamp == null).ToList();
+            company.Employees = company.Employees.ToList();
+
+            if (showArchive != true)
+            {
+                company.Employees = company.Employees.Where(x => x.ArchivedTimeStamp == null).ToList();
+                ViewBag.showArchive = false;
+            }
+            else
+            {
+                ViewBag.showArchive = true;
+            }
 
             ViewBag.CompanyId = companyId;
             ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";

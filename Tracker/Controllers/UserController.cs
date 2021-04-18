@@ -42,16 +42,25 @@ namespace Tracker.Controllers
             return View(userViewModel);
         }
 
-        public ActionResult List(string sortOrder, string searchString)
+        public ActionResult List(string sortOrder, string searchString, bool? showArchive)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
 
             var context = new TrackerDbContext();
             var users = context.Users
-                .Where(x=>x.ArchivedTimeStamp==null)
                 .Include(x => x.Company)
                 .ToList();
+
+            if (showArchive != true)
+            {
+                users = users.Where(x => x.ArchivedTimeStamp == null).ToList();
+                ViewBag.showArchive = false;
+            }
+            else
+            {
+                ViewBag.showArchive = true;
+            }
 
             ViewBag.LastNameSortParm = String.IsNullOrEmpty(sortOrder) ? "lname_desc" : "";
             ViewBag.FirstNameSortParm = sortOrder == "fname" ? "fname_desc" : "fname";
@@ -140,7 +149,7 @@ namespace Tracker.Controllers
             };
             return View(userViewModel);
         }
-        public ActionResult Details(int userId, string sortOrder,string searchString)
+        public ActionResult Details(int userId, string sortOrder,string searchString, bool? showArchive)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
@@ -151,7 +160,17 @@ namespace Tracker.Controllers
                 .Include(x => x.Company)
                 .Include(x => x.UserType)
                 .FirstOrDefault();
-            user.Notifications = user.Notifications.Where(x => x.ArchivedTimeStamp == null).ToList();
+            
+
+            if (showArchive != true)
+            {
+                user.Notifications = user.Notifications.Where(x => x.ArchivedTimeStamp == null).ToList();
+                ViewBag.showArchive = false;
+            }
+            else
+            {
+                ViewBag.showArchive = true;
+            }
 
             ViewBag.UserId = userId;
             ViewBag.WorkerSortParm = String.IsNullOrEmpty(sortOrder) ? "worker_desc" : "";

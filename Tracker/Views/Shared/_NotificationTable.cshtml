@@ -40,7 +40,10 @@
         <td>@Html.DisplayFor(modelItem => item.WorkTime) </td>
         <td align="right">
             <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Notification", new {notificationId = item.Id })'">Szczegóły</button>
-            <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Notification", new {notificationId = item.Id })'">Edytuj</button>
+            @if (item.ArchivedTimeStamp == null)
+            {
+                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Notification", new { notificationId = item.Id })'">Edytuj</button>
+            }
         </td>
     </tr>
         }

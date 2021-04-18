@@ -6,6 +6,7 @@
             @Html.ActionLink("Tytuł", ViewContext.RouteData.Values["action"].ToString(), new
        {
            sortOrder = ViewBag.TitleSortParm,
+           showArchive = ViewBag.showArchive,
            searchString = ViewBag.IssueSearchString
        })
         </th>
@@ -13,6 +14,7 @@
             @Html.ActionLink("Agent", ViewContext.RouteData.Values["action"].ToString(), new
        {
            sortOrder = ViewBag.AgentSortParm,
+           showArchive = ViewBag.showArchive,
            searchString = ViewBag.IssueSearchString
        })
         </th>
@@ -20,6 +22,7 @@
             @Html.ActionLink("Zgłoszone przez", ViewContext.RouteData.Values["action"].ToString(), new
        {
            sortOrder = ViewBag.NotifierSortParm,
+           showArchive = ViewBag.showArchive,
            searchString = ViewBag.IssueSearchString
        })
         </th>
@@ -27,6 +30,7 @@
             @Html.ActionLink("Status", ViewContext.RouteData.Values["action"].ToString(), new
        {
            sortOrder = ViewBag.StatusSortParm,
+           showArchive = ViewBag.showArchive,
            searchString = ViewBag.IssueSearchString
        })
         </th>
@@ -42,10 +46,13 @@
             <td>@Html.DisplayFor(modelItem => item.Status.Name)</td>
             <td align="right">
                 <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Issue", new {issueId = item.Id })'">Szczegóły</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Issue",new {issueId = item.Id })'">Edytuj</button>
-                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Close", "Issue",new {id = item.Id })'">Zamknij</button>
-                <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Reject", "Issue",new {id = item.Id })'">Odrzuć</button>
-            </td>
+                @if (item.ArchivedTimeStamp == null)
+                {
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Issue", new { issueId = item.Id })'">Edytuj</button>
+                    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Close", "Issue", new { id = item.Id })'">Zamknij</button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Reject", "Issue", new { id = item.Id })'">Odrzuć</button>
+                }
+                </td>
         </tr>
     }
 </table>

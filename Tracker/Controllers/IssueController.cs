@@ -49,17 +49,26 @@ namespace Tracker.Controllers
             }
         }
 
-        public ActionResult List(string sortOrder, string searchString)
+        public ActionResult List(string sortOrder, string searchString, bool? showArchive)
         {
             if (Session["User"] == null)
                 return RedirectToAction("Login", "Account");
             var context = new TrackerDbContext();
             var issues = context.Issues
-                .Where(x => x.ArchivedTimeStamp == null)
                 .Include(x => x.Status)
                 .Include(x => x.Notifier)
                 .Include(x => x.Agent)
                 .ToList();
+
+            if (showArchive != true)
+            {
+                issues = issues.Where(x => x.ArchivedTimeStamp == null).ToList();
+                ViewBag.showArchive = false;
+            }
+            else
+            {
+                ViewBag.showArchive = true;
+            }
 
             ViewBag.TitleSortParm = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.AgentSortParm = sortOrder == "agent" ? "agent_desc" : "agent";

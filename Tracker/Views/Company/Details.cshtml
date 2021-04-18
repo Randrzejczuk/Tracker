@@ -26,6 +26,30 @@
                     </td>
                 }
             </tr>
+            <tr>
+                <td>
+                    @if (ViewBag.showArchive)
+                    {
+                        <label>
+                            <input checked="checked" type="checkbox" onclick="location.href='@Url.Action("Details", "Company",new {
+                                                                            showArchive = !ViewBag.showArchive ,
+                                                                            searchString = ViewBag.UserSearchString,
+                                                                            companyId = Model.Id
+                                                                            })'"> Pokaż archiwalne
+                        </label>
+                    }
+                    else
+                    {
+                        <label>
+                            <input type="checkbox" onclick="location.href='@Url.Action("Details", "Company",new {
+                                                                            showArchive = !ViewBag.showArchive ,
+                                                                            searchString = ViewBag.UserSearchString,
+                                                                            companyId = Model.Id
+                                                                            })'"> Pokaż archiwalne
+                        </label>
+                    }
+                </td>
+            </tr>
         </table>
     </div><br />
 </p>

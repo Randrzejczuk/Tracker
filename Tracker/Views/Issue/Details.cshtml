@@ -29,9 +29,12 @@
 <hr />
 <h2>Wpisy</h2>
 <p>
+    @if (Model.ArchivedTimeStamp == null)
+    {
     <div style="float: left; width: 80%;">
-        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Notification",new {issueId = Model.Id})'">Dodaj</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Notification", new { issueId = Model.Id })'">Dodaj</button>
     </div>
+    }
     <div style="float: right; width: 20%;">
         <table>
             <tr>

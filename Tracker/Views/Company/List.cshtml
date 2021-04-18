@@ -22,10 +22,32 @@
                         <button type="submit" class="btn btn-secondary">Wyszukaj</button>
                     </td>
                 }
-                </tr>
+            </tr>
+            <tr>
+                <td>
+                    @if(ViewBag.showArchive)
+                    {
+                    <label>
+                        <input checked="checked" type="checkbox" onclick="location.href='@Url.Action("List", "Company",new {
+                                                                            showArchive = !ViewBag.showArchive ,
+                                                                            searchString = ViewBag.CompanySearchString
+                                                                            })'"> Pokaż archiwalne
+                    </label>
+                    }
+                    else{
+                    <label>
+                        <input type="checkbox" onclick="location.href='@Url.Action("List", "Company",new {
+                                                                            showArchive = !ViewBag.showArchive ,
+                                                                            searchString = ViewBag.CompanySearchString
+                                                                            })'"> Pokaż archiwalne
+                    </label>
+                    }
+                </td>
+            </tr>
         </table>
     </div><br />
-</p><br />
+</p>
+<br />
 <hr />
 
 <table class="table table-striped table-hover">
@@ -33,8 +55,9 @@
         <th>
             @Html.ActionLink("Nazwa firmy", "List", new
             {
-                   sortOrder = ViewBag.CompanySortParm,
-                   searchString = ViewBag.CompanySearchString
+                sortOrder = ViewBag.CompanySortParm,
+                searchString = ViewBag.CompanySearchString,
+                showArchive = ViewBag.showArchive
             })
         </th>
         <th></th>
@@ -48,9 +71,12 @@
             </td>
             <td align="right">
                 <button type="button" class="btn btn-info" onclick="location.href='@Url.Action("Details", "Company", new {companyId = item.Id })'">Szczegóły</button>
-                <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Company", new {companyId = item.Id })'">Edytuj</button>
-                <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Delete", "Company",new {id = item.Id })'">Usuń</button>
-            </td>
+                @if (item.ArchivedTimeStamp == null)
+                {
+                    <button type="button" class="btn btn-secondary" onclick="location.href='@Url.Action("Edit", "Company", new { companyId = item.Id })'">Edytuj</button>
+                    <button type="button" class="btn btn-warning" onclick="location.href='@Url.Action("Delete", "Company", new { id = item.Id })'">Usuń</button>
+                }
+                </td>
         </tr>
     }
 
